@@ -37,3 +37,12 @@ resource "google_cloud_run_service" "service" {
     google_project_service.cloudrun
   ]
 }
+
+resource "google_cloud_run_service_iam_binding" "noauth" {
+  project  = var.project_id
+  location = var.region
+  service  = google_cloud_run_service.service.name
+
+  role = "roles/run.invoker"
+  members = ["allUsers"]
+} 
